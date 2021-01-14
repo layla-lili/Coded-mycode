@@ -12,5 +12,6 @@ class storyNode {
   
   console.log(node.year + node.highLight);
 
+  
   console.log(node3.link.data);
   console.log(node3.link.link);

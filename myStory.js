@@ -43,7 +43,7 @@ class LinkedList {
 }
 
  
-        
+      //call logs  
 
         const layla = new LinkedList(7, "i get taller");
         layla.insertBeginning(3,"i learn drawing");
@@ -54,6 +54,7 @@ class LinkedList {
 
         layla.insertHighlights(age);
         layla.traverse();
+
 
 
      
