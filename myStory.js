@@ -1,81 +1,59 @@
-const readline = require("readline");
- 
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
- });
- rl.question("Enter your age? ", function(year) 
- {
+const prompt = require("prompt-sync")({ sigint: true });
 
 class storyNode {
-    constructor(year, highLight, next = null) {
-      this.year = year;
-      this.next = next;
-      this.highLight=highLight;
-    }
+  constructor(age, highlight, next = null) {
+    this.age = age;
+    this.highlight = highlight;
+    this.next = next;
+  }
+}
+
+class LinkedList {
+  constructor(age, highlight) {
+    this.head = new storyNode(age, highlight);
   }
 
+  insertBeginning = (age, highlight) => {
+    const newNode = new storyNode(age, highlight, this.head);
+    this.head = newNode;
+  };
 
-
-  class LinkedList {
-
-    constructor(year, highLight) {
-      this.head = new storyNode(year, highLight);
+  traverse = () => {
+    let current = this.head;
+    while (current) {
+      console.log(`Age: ${current.age}, highlight: ${current.highlight}`);
+      current = current.next;
     }
-  
-    insertBeginning = (year, highLight) => {
-      const newNode = new storyNode(year, highLight, this.head);
-      this.head = newNode;
-    };
-  
-    traverse = () => {
-     
-      let current = this.head;
-      while (current) {
-        console.log(`year: ${current.year}, highlight: ${current.highLight}`);
+  };
+
+  insertHighlights = (age) => {
+    let current = this.head;
+    while (current.age < age) {
+      let currentAge = current.age + 1;
+      if (current.next && current.next.age === currentAge) {
         current = current.next;
+      } else {
+        let highlight = prompt(`What was the highlight for age ${currentAge}?`);
+        let newNode = new storyNode(currentAge, highlight, current.next);
+        current.next = newNode;
+        current = newNode;
       }
-    
-    };
+    }
+  };
+}
 
-
-insertHighlight= (year) =>{
-    let current =this.head;
-    while(current.year < year){
-        let currentyear = current.age +1;
-        if(current.next && current.next.year === currentyear){
-           current=current.next;
-        }else{
-            rl.question(`what was the highlight of your age ${currentyear}?`,
-               function(highLight) {
-
-            // let highLight = prompt(`what was the highlight of your age ${currentyear}?`);
-            let newNode = new storyNode(currentyear, highLight,current.next);
-            current.next= newNode;
-            current=newNode;
-               });
-            
-                       }
-            
-                    }
-                }
-            
-                
-
-                
  
-  }
-  rl.close();
-     
-         });
+        
 
         const layla = new LinkedList(7, "i get taller");
         layla.insertBeginning(3,"i learn drawing");
         layla.insertBeginning(1,"i eat diffrent food");
         layla.traverse();
 
-        //    layla.insertBeginning(year);
-        layla.insertHighlight(r1);
+        const age = prompt("How old are you?");
+
+        layla.insertHighlights(age);
         layla.traverse();
 
 
+     
